@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Valentine’s Day ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      text-align: center;
+      padding: 50px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #d6336c;
+    }
+
+    p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: 20px auto;
+      color: #444;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      display: inline-block;
+      margin-top: 30px;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 20px;
+      background: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #d6336c;
+    }
+
+    #surprise {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.4rem;
+      color: #d6336c;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-110vh);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>Happy Valentine’s Day ❤️</h1>
+
+    <p>
+      To my beautiful fiancée,<br><br>
+      Every day with you feels like home.  
+      You make my life brighter, funnier, warmer, and better in every way.
+      <br><br>
+      I’m so lucky I get to love you — today and always.
+    </p>
+
+    <button onclick="showSurprise()">Click for a surprise 💌</button>
+
+    <div id="surprise">
+      I love you more than words can say 💖<br>
+      Forever your Valentine.
+    </div>
+  </div>
+
+  <script>
+    function showSurprise() {
+      document.getElementById("surprise").style.display = "block";
+    }
+
+    // Floating hearts generator
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }, 400);
+  </script>
+
+</body>
+</html>
 

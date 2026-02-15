@@ -178,12 +178,24 @@
       // Set year limits
       const today = new Date();
       const year = today.getFullYear();
-
       document.getElementById(type + "Date").min = `${year}-01-01`;
       document.getElementById(type + "Date").max = `${year}-12-31`;
+
+      // ✅ If already redeemed, show the saved date
+      const savedDate = localStorage.getItem(type + "Redeemed");
+      const confirmBox = document.getElementById(type + "Confirm");
+      if (savedDate) {
+        confirmBox.style.display = "block";
+        confirmBox.innerHTML =
+          `✨ Already redeemed for: <b>${savedDate}</b><br><br>
+           I can’t wait ❤️`;
+      } else {
+        confirmBox.style.display = "none";
+        confirmBox.innerHTML = "";
+      }
     }
 
-    // Redeem coupon
+    // Redeem coupon and save it
     function redeem(type) {
       const dateValue = document.getElementById(type + "Date").value;
 
@@ -191,6 +203,9 @@
         alert("Pick a date first 💖");
         return;
       }
+
+      // ✅ Save permanently in this browser
+      localStorage.setItem(type + "Redeemed", dateValue);
 
       const confirmBox = document.getElementById(type + "Confirm");
       confirmBox.style.display = "block";

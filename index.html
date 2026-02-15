@@ -53,6 +53,11 @@
       background: #d6336c;
     }
 
+    #couponButtons {
+      display: none;
+      margin-top: 25px;
+    }
+
     .coupon-section {
       display: none;
       margin-top: 25px;
@@ -101,15 +106,22 @@
       To my beautiful fiancée,<br><br>
       You make my life brighter, warmer, and better in every way.
       <br><br>
-      So… I made you something special:
-      <br><br>
-      Three Valentine Coupons 💌
+      I made you something special 💌
     </p>
 
-    <!-- Coupon Buttons -->
-    <button onclick="openCoupon('dinner')">🍽️ Dinner Coupon</button>
-    <button onclick="openCoupon('spa')">🛁 Spa Night Coupon</button>
-    <button onclick="openCoupon('date')">🌙 Date Night Coupon</button>
+    <!-- Surprise Button -->
+    <button onclick="openSurprise()">Open the Surprise 💝</button>
+
+    <!-- Coupon Buttons (Hidden at First) -->
+    <div id="couponButtons">
+      <p style="margin-top:20px;">
+        Three Valentine Coupons, redeemable anytime this year 💖
+      </p>
+
+      <button onclick="openCoupon('dinner')">🍽️ Dinner Coupon</button>
+      <button onclick="openCoupon('spa')">🛁 Spa Night Coupon</button>
+      <button onclick="openCoupon('date')">🌙 Date Night Coupon</button>
+    </div>
 
     <!-- Dinner Coupon -->
     <div id="dinner" class="coupon-section">
@@ -150,6 +162,11 @@
   </div>
 
   <script>
+    // Reveal the coupons
+    function openSurprise() {
+      document.getElementById("couponButtons").style.display = "block";
+    }
+
     // Show only one coupon at a time
     function openCoupon(type) {
       document.querySelectorAll(".coupon-section").forEach(section => {

@@ -21,15 +21,15 @@
     }
 
     p {
-      font-size: 1.3rem;
-      max-width: 600px;
+      font-size: 1.2rem;
+      max-width: 650px;
       margin: 20px auto;
       color: #444;
     }
 
     .card {
       background: white;
-      padding: 40px;
+      padding: 45px;
       border-radius: 25px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       display: inline-block;
@@ -37,9 +37,9 @@
     }
 
     button {
-      margin-top: 25px;
-      padding: 12px 25px;
-      font-size: 1.1rem;
+      margin-top: 15px;
+      padding: 12px 22px;
+      font-size: 1.05rem;
       border: none;
       border-radius: 20px;
       background: #ff4d6d;
@@ -53,11 +53,27 @@
       background: #d6336c;
     }
 
-    #surprise {
+    .coupon-section {
       display: none;
-      margin-top: 20px;
-      font-size: 1.4rem;
-      color: #d6336c;
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 20px;
+      background: #fff0f5;
+    }
+
+    input[type="date"] {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+    }
+
+    .confirmation {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #444;
+      display: none;
     }
 
     /* Floating hearts */
@@ -70,12 +86,8 @@
     }
 
     @keyframes floatUp {
-      from {
-        transform: translateY(0);
-      }
-      to {
-        transform: translateY(-110vh);
-      }
+      from { transform: translateY(0); }
+      to { transform: translateY(-110vh); }
     }
   </style>
 </head>
@@ -87,26 +99,90 @@
 
     <p>
       To my beautiful fiancée,<br><br>
-      Every day with you feels like home.  
-      You make my life brighter, funnier, warmer, and better in every way.
+      You make my life brighter, warmer, and better in every way.
       <br><br>
-      I’m so lucky I get to love you — today and always.
+      So… I made you something special:
+      <br><br>
+      Three Valentine Coupons 💌
     </p>
 
-    <button onclick="showSurprise()">Click for a surprise 💌</button>
+    <!-- Coupon Buttons -->
+    <button onclick="openCoupon('dinner')">🍽️ Dinner Coupon</button>
+    <button onclick="openCoupon('spa')">🛁 Spa Night Coupon</button>
+    <button onclick="openCoupon('date')">🌙 Date Night Coupon</button>
 
-    <div id="surprise">
-      I love you more than words can say 💖<br>
-      Forever your Valentine.
+    <!-- Dinner Coupon -->
+    <div id="dinner" class="coupon-section">
+      <h2>🍽️ Dinner Coupon</h2>
+      <p>A romantic dinner — anywhere you want, anytime you want.</p>
+
+      <input type="date" id="dinnerDate" />
+      <br>
+      <button onclick="redeem('dinner')">Redeem Dinner 💖</button>
+
+      <div id="dinnerConfirm" class="confirmation"></div>
     </div>
+
+    <!-- Spa Coupon -->
+    <div id="spa" class="coupon-section">
+      <h2>🛁 Spa Night Coupon</h2>
+      <p>A cozy spa night — candles, relaxation, and total pampering.</p>
+
+      <input type="date" id="spaDate" />
+      <br>
+      <button onclick="redeem('spa')">Redeem Spa Night 💆‍♀️</button>
+
+      <div id="spaConfirm" class="confirmation"></div>
+    </div>
+
+    <!-- Date Night Coupon -->
+    <div id="date" class="coupon-section">
+      <h2>🌙 Date Night Coupon</h2>
+      <p>A special date night — surprise adventure or something simple and sweet.</p>
+
+      <input type="date" id="dateDate" />
+      <br>
+      <button onclick="redeem('date')">Redeem Date Night ❤️</button>
+
+      <div id="dateConfirm" class="confirmation"></div>
+    </div>
+
   </div>
 
   <script>
-    function showSurprise() {
-      document.getElementById("surprise").style.display = "block";
+    // Show only one coupon at a time
+    function openCoupon(type) {
+      document.querySelectorAll(".coupon-section").forEach(section => {
+        section.style.display = "none";
+      });
+
+      document.getElementById(type).style.display = "block";
+
+      // Set year limits
+      const today = new Date();
+      const year = today.getFullYear();
+
+      document.getElementById(type + "Date").min = `${year}-01-01`;
+      document.getElementById(type + "Date").max = `${year}-12-31`;
     }
 
-    // Floating hearts generator
+    // Redeem coupon
+    function redeem(type) {
+      const dateValue = document.getElementById(type + "Date").value;
+
+      if (!dateValue) {
+        alert("Pick a date first 💖");
+        return;
+      }
+
+      const confirmBox = document.getElementById(type + "Confirm");
+      confirmBox.style.display = "block";
+      confirmBox.innerHTML =
+        `✨ Officially redeemed for: <b>${dateValue}</b><br><br>
+         I can’t wait ❤️`;
+    }
+
+    // Floating hearts
     setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -121,4 +197,3 @@
 
 </body>
 </html>
-

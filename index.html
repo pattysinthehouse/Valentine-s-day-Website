@@ -110,9 +110,11 @@
     </p>
 
     <!-- Surprise Button -->
-    <button onclick="openSurprise()">Open the Surprise 💝</button>
+    <button id="surpriseButton" onclick="openSurprise()">
+      Open the Surprise 💝
+    </button>
 
-    <!-- Coupon Buttons (Hidden at First) -->
+    <!-- Coupon Buttons -->
     <div id="couponButtons">
       <p style="margin-top:20px;">
         Three Valentine Coupons, redeemable anytime this year 💖
@@ -162,9 +164,23 @@
   </div>
 
   <script>
-    // Reveal the coupons
+    // ✅ Auto-open surprise forever if opened before
+    window.onload = function () {
+      if (localStorage.getItem("surpriseOpened") === "yes") {
+        document.getElementById("couponButtons").style.display = "block";
+        document.getElementById("surpriseButton").style.display = "none";
+      }
+    };
+
+    // Reveal the coupons + save that it's opened
     function openSurprise() {
       document.getElementById("couponButtons").style.display = "block";
+
+      // ✅ Save forever
+      localStorage.setItem("surpriseOpened", "yes");
+
+      // Hide the surprise button after opening
+      document.getElementById("surpriseButton").style.display = "none";
     }
 
     // Show only one coupon at a time
@@ -181,9 +197,10 @@
       document.getElementById(type + "Date").min = `${year}-01-01`;
       document.getElementById(type + "Date").max = `${year}-12-31`;
 
-      // ✅ If already redeemed, show the saved date
+      // ✅ Show saved redemption date if it exists
       const savedDate = localStorage.getItem(type + "Redeemed");
       const confirmBox = document.getElementById(type + "Confirm");
+
       if (savedDate) {
         confirmBox.style.display = "block";
         confirmBox.innerHTML =
@@ -195,7 +212,7 @@
       }
     }
 
-    // Redeem coupon and save it
+    // Redeem coupon + save date permanently
     function redeem(type) {
       const dateValue = document.getElementById(type + "Date").value;
 
@@ -204,7 +221,7 @@
         return;
       }
 
-      // ✅ Save permanently in this browser
+      // ✅ Save permanently
       localStorage.setItem(type + "Redeemed", dateValue);
 
       const confirmBox = document.getElementById(type + "Confirm");
@@ -214,7 +231,7 @@
          I can’t wait ❤️`;
     }
 
-    // Floating hearts
+    // Floating hearts animation
     setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
